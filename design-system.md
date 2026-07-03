@@ -279,10 +279,16 @@ Includes support for form validation states.
   <span class="form-help">Enter your primary business account.</span>
 </div>
 
-<!-- Validation Error State -->
+<!-- Password with Show/Hide Toggle -->
 <div class="form-group error">
   <label class="form-label" for="password">Password</label>
-  <input class="form-control" id="password" type="password" />
+  <div class="input-with-icon-wrapper">
+    <input class="form-control" id="password" type="password" value="12345678" />
+    <button type="button" class="input-icon-btn" aria-label="Toggle password visibility">
+      <!-- Show Eye Icon (SVG) -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+  </div>
   <span class="form-error-msg">Password must be at least 8 characters.</span>
 </div>
 ```
@@ -336,6 +342,36 @@ Includes support for form validation states.
   font-size: 0.7rem;
   color: hsl(var(--destructive));
   font-weight: 500;
+}
+
+/* Show/Hide Toggle Icon Classes */
+.input-with-icon-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon-wrapper .form-control {
+  padding-right: 2.5rem;
+}
+
+.input-icon-btn {
+  position: absolute;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: hsl(var(--text-secondary));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.input-icon-btn:hover {
+  color: hsl(var(--text-primary));
 }
 ```
 

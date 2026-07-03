@@ -15,6 +15,7 @@ export default function Home() {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [activeTabMap, setActiveTabMap] = useState<Record<string, 'html' | 'css'>>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Sync theme attribute with DOM wrapper
   useEffect(() => {
@@ -104,7 +105,7 @@ export default function Home() {
     {
       id: 'forms',
       name: 'Form Controls',
-      description: 'Standard text inputs, label groupings, helper text, and validation error layouts.',
+      description: 'Standard text inputs, label groupings, helper text, and validation error layouts including show/hide password visibility toggle.',
       preview: (
         <div style={{ width: '100%', maxWidth: '400px' }}>
           <div className="form-group">
@@ -114,7 +115,26 @@ export default function Home() {
           </div>
           <div className="form-group error" style={{ marginTop: '1.5rem' }}>
             <label className="form-label" htmlFor="doc-pass">Password</label>
-            <input className="form-control" id="doc-pass" type="password" defaultValue="123" />
+            <div className="input-with-icon-wrapper">
+              <input 
+                className="form-control" 
+                id="doc-pass" 
+                type={showPassword ? "text" : "password"} 
+                defaultValue="12345678" 
+              />
+              <button 
+                type="button" 
+                className="input-icon-btn" 
+                onClick={() => setShowPassword(!showPassword)}
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                ) : (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                )}
+              </button>
+            </div>
             <span className="form-error-msg">Password must be at least 8 characters.</span>
           </div>
         </div>
@@ -125,17 +145,29 @@ export default function Home() {
   <span class="form-help">Enter your primary business account.</span>
 </div>
 
-<!-- Validation Error State -->
+<!-- Password with Show/Hide Toggle -->
 <div class="form-group error">
   <label class="form-label" for="password">Password</label>
-  <input class="form-control" id="password" type="password" />
+  <div class="input-with-icon-wrapper">
+    <input class="form-control" id="password" type="password" value="12345678" />
+    <button type="button" class="input-icon-btn" aria-label="Toggle password visibility">
+      <!-- Show Eye Icon (SVG) -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
+  </div>
   <span class="form-error-msg">Password must be at least 8 characters.</span>
 </div>`,
       cssCode: `.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
 .form-label { font-size: 0.75rem; font-weight: 600; color: hsl(var(--text-secondary)); }
 .form-control { border-radius: var(--radius-sm); border: 1px solid hsl(var(--input)); background-color: transparent; padding: 0.5rem 0.75rem; font-size: 0.825rem; }
 .form-control:focus { outline: none; border-color: hsl(var(--ring)); box-shadow: 0 0 0 2px hsl(var(--ring) / 0.15); }
-.form-group.error .form-control { border-color: hsl(var(--destructive)); }`
+.form-group.error .form-control { border-color: hsl(var(--destructive)); }
+
+/* Show/Hide Toggle Classes */
+.input-with-icon-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
+.input-with-icon-wrapper .form-control { padding-right: 2.5rem; }
+.input-icon-btn { position: absolute; right: 0.75rem; background: transparent; border: none; color: hsl(var(--text-secondary)); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.input-icon-btn:hover { color: hsl(var(--text-primary)); }`
     },
     {
       id: 'selection',
